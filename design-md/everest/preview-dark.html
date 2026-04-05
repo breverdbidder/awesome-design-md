@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Design System Preview: Everest Capital (Dark)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --navy-deepest: #0F2440;
+    --navy: #1E3A5F;
+    --navy-elevated: #2A4A6B;
+    --navy-light: #3B5E80;
+    --navy-muted: #4A7194;
+    --amber: #F59E0B;
+    --amber-hover: #D97706;
+    --amber-light: #FCD34D;
+    --amber-pale: rgba(245,158,11,0.15);
+    --amber-deep: #B45309;
+    --white: #FFFFFF;
+    --text-primary: #F8FAFC;
+    --text-secondary: #CBD5E1;
+    --text-tertiary: #94A3B8;
+    --text-disabled: #64748B;
+    --text-dark: #1E293B;
+    --success: #10B981;
+    --success-bg: rgba(16,185,129,0.15);
+    --warning: #F59E0B;
+    --warning-bg: rgba(245,158,11,0.15);
+    --error: #EF4444;
+    --error-bg: rgba(239,68,68,0.15);
+    --info: #3B82F6;
+    --border: rgba(255,255,255,0.08);
+    --border-subtle: rgba(255,255,255,0.05);
+    --border-emphasis: rgba(255,255,255,0.12);
+    --border-amber: rgba(245,158,11,0.4);
+    --shadow-navy: rgba(30,58,95,0.25);
+    --shadow-deep: rgba(15,36,64,0.35);
+    --shadow-black: rgba(0,0,0,0.15);
+    --zone-residential: #4ADE80;
+    --zone-commercial: #60A5FA;
+    --zone-industrial: #A78BFA;
+    --zone-agricultural: #FBBF24;
+    --zone-mixed: #F472B6;
+    --zone-pud: #2DD4BF;
+    --font-primary: 'Inter', system-ui, sans-serif;
+    --font-mono: 'JetBrains Mono', monospace;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: var(--font-primary);
+    font-feature-settings: "cv01" 1, "ss03" 1;
+    background: var(--navy);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* HEADER */
+  .header {
+    background: var(--navy-deepest); padding: 16px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid var(--border);
+    backdrop-filter: blur(12px); position: sticky; top: 0; z-index: 100;
+  }
+  .header-logo { font-size: 18px; font-weight: 600; color: var(--text-primary); }
+  .header-logo span { color: var(--amber); }
+  .header-nav { display: flex; gap: 24px; align-items: center; }
+  .header-nav a { font-size: 14px; font-weight: 500; color: var(--text-secondary); text-decoration: none; }
+  .header-nav a:hover { color: var(--amber); }
+  .header-nav a.active { color: var(--amber); background: var(--amber-pale); padding: 4px 12px; border-radius: 4px; }
+
+  /* BUTTONS */
+  .btn-primary {
+    display: inline-block; background: var(--amber); color: var(--text-dark);
+    padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500;
+    border: none; cursor: pointer; transition: background 0.15s, box-shadow 0.15s;
+    text-decoration: none; font-feature-settings: "cv01" 1, "ss03" 1;
+  }
+  .btn-primary:hover { background: var(--amber-hover); box-shadow: 0 0 0 3px rgba(245,158,11,0.3); }
+  .btn-secondary {
+    display: inline-block; background: transparent; color: var(--text-primary);
+    padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500;
+    border: 1px solid var(--border-emphasis); cursor: pointer; transition: background 0.15s;
+    text-decoration: none; font-feature-settings: "cv01" 1, "ss03" 1;
+  }
+  .btn-secondary:hover { background: rgba(255,255,255,0.05); }
+  .btn-danger {
+    display: inline-block; background: var(--error); color: var(--white);
+    padding: 10px 20px; border-radius: 6px; font-size: 14px; font-weight: 500;
+    border: none; cursor: pointer; text-decoration: none;
+    font-feature-settings: "cv01" 1, "ss03" 1;
+  }
+
+  /* SECTIONS */
+  .section { padding: 48px 32px; max-width: 1080px; margin: 0 auto; }
+  .section-label { font-family: var(--font-mono); font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase; margin-bottom: 8px; letter-spacing: 0.3px; }
+  .section-title { font-size: 28px; font-weight: 600; line-height: 1.15; letter-spacing: -0.4px; margin-bottom: 32px; color: var(--text-primary); }
+  .section-divider { border: none; border-top: 1px solid var(--border); margin: 0; }
+
+  /* COLORS */
+  .color-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px, 1fr)); gap: 12px; margin-bottom: 24px; }
+  .color-swatch { border-radius: 8px; overflow: hidden; border: 1px solid var(--border); }
+  .color-swatch-block { height: 72px; width: 100%; }
+  .color-swatch-info { padding: 10px 12px; background: var(--navy-deepest); }
+  .color-swatch-name { font-size: 13px; font-weight: 500; margin-bottom: 2px; color: var(--text-primary); }
+  .color-swatch-hex { font-size: 12px; color: var(--text-tertiary); font-family: var(--font-mono); }
+  .color-swatch-role { font-size: 11px; color: var(--text-disabled); margin-top: 3px; }
+  .color-group-label { font-size: 14px; font-weight: 600; color: var(--text-secondary); letter-spacing: -0.2px; margin: 24px 0 10px; }
+
+  /* TYPOGRAPHY */
+  .type-sample { margin-bottom: 28px; padding-bottom: 24px; border-bottom: 1px solid var(--border-subtle); }
+  .type-sample:last-child { border-bottom: none; }
+  .type-meta { font-family: var(--font-mono); font-size: 12px; font-weight: 400; color: var(--text-disabled); margin-top: 8px; }
+
+  /* CARDS */
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .card {
+    background: var(--navy-elevated); border: 1px solid var(--border); border-radius: 8px;
+    padding: 24px; box-shadow: rgba(30,58,95,0.25) 0px 20px 40px -20px, rgba(0,0,0,0.15) 0px 10px 20px -10px;
+  }
+  .card-title { font-size: 18px; font-weight: 600; margin-bottom: 8px; letter-spacing: -0.1px; }
+  .card-body { font-size: 14px; color: var(--text-secondary); line-height: 1.55; }
+  .card-auction { border-left: 3px solid var(--amber); }
+  .card-auction-deadline { border-left: 3px solid var(--error); }
+  .card-auction-won { border-left: 3px solid var(--success); }
+  .card-bid { font-family: var(--font-mono); font-size: 20px; font-weight: 500; color: var(--amber); margin: 12px 0; font-feature-settings: "tnum" 1; }
+  .card-parcel-id { font-family: var(--font-mono); font-size: 14px; color: var(--text-tertiary); font-feature-settings: "tnum" 1; }
+
+  /* BADGES */
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .badge-success { background: var(--success-bg); color: var(--success); border: 1px solid rgba(16,185,129,0.4); }
+  .badge-warning { background: var(--warning-bg); color: var(--warning); border: 1px solid var(--border-amber); }
+  .badge-error { background: var(--error-bg); color: var(--error); border: 1px solid rgba(239,68,68,0.4); }
+  .badge-info { background: rgba(59,130,246,0.15); color: var(--info); border: 1px solid rgba(59,130,246,0.4); }
+  .badge-zone { padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .badge-residential { background: rgba(74,222,128,0.2); color: var(--zone-residential); }
+  .badge-commercial { background: rgba(96,165,250,0.2); color: var(--zone-commercial); }
+  .badge-industrial { background: rgba(167,139,250,0.2); color: var(--zone-industrial); }
+  .badge-mixed { background: rgba(244,114,182,0.2); color: var(--zone-mixed); }
+
+  /* INPUTS */
+  .input-text {
+    background: rgba(255,255,255,0.05); border: 1px solid var(--border); border-radius: 6px;
+    padding: 10px 14px; color: var(--text-primary); font-size: 14px; font-family: var(--font-primary);
+    font-feature-settings: "cv01" 1, "ss03" 1; width: 100%; max-width: 400px; outline: none;
+    transition: border-color 0.15s, box-shadow 0.15s;
+  }
+  .input-text::placeholder { color: var(--text-disabled); }
+  .input-text:focus { border-color: var(--amber); box-shadow: 0 0 0 3px rgba(245,158,11,0.15); }
+
+  /* DATA TABLE */
+  .data-table { width: 100%; border-collapse: collapse; border-radius: 8px; overflow: hidden; }
+  .data-table thead { background: var(--navy-deepest); }
+  .data-table th {
+    font-size: 12px; font-weight: 500; color: var(--text-tertiary); text-transform: uppercase;
+    letter-spacing: 0.3px; padding: 12px 16px; text-align: left; border-bottom: 1px solid var(--border);
+  }
+  .data-table th.num { text-align: right; }
+  .data-table td { padding: 12px 16px; font-size: 14px; border-bottom: 1px solid var(--border-subtle); }
+  .data-table tr { background: var(--navy); }
+  .data-table tr:nth-child(even) { background: rgba(255,255,255,0.02); }
+  .data-table tr:hover { background: rgba(245,158,11,0.05); }
+  .data-table .mono { font-family: var(--font-mono); font-feature-settings: "tnum" 1; }
+  .data-table .num { text-align: right; }
+  .data-table .selected { background: rgba(245,158,11,0.1); border-left: 3px solid var(--amber); }
+
+  .button-row { display: flex; gap: 16px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+  .badge-row { display: flex; gap: 8px; flex-wrap: wrap; align-items: center; margin-bottom: 16px; }
+  .input-row { display: flex; flex-direction: column; gap: 16px; }
+
+  /* HERO */
+  .hero { padding: 64px 32px; max-width: 1080px; margin: 0 auto; text-align: center; }
+  .hero h1 { font-size: 64px; font-weight: 600; line-height: 1.00; letter-spacing: -1.2px; margin-bottom: 16px; }
+  .hero h1 span { color: var(--amber); }
+  .hero p { font-size: 16px; color: var(--text-secondary); line-height: 1.60; max-width: 600px; margin: 0 auto 32px; }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<div class="header">
+  <div class="header-logo">Everest<span>Capital</span></div>
+  <nav class="header-nav">
+    <a href="#" class="active">Dashboard</a>
+    <a href="#">Auctions</a>
+    <a href="#">Parcels</a>
+    <a href="#">Zoning</a>
+    <a class="btn-primary" href="#" style="padding:8px 16px;">Get Started</a>
+  </nav>
+</div>
+
+<!-- HERO -->
+<div class="hero" style="background:var(--navy-deepest); border-bottom:1px solid var(--border);">
+  <h1>BidDeed<span>.AI</span> + ZoneWise<span>.AI</span></h1>
+  <p>Agentic AI ecosystem for foreclosure and tax deed investing. Data density meets investor-grade confidence.</p>
+  <div class="button-row" style="justify-content:center;">
+    <a class="btn-primary" href="#">Start Analyzing</a>
+    <a class="btn-secondary" href="#">View Demo</a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- COLORS -->
+<div class="section">
+  <div class="section-label">01 / Colors</div>
+  <div class="section-title">Color Palette</div>
+
+  <div class="color-group-label">Brand</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#0F2440;"></div><div class="color-swatch-info"><div class="color-swatch-name">Navy Deepest</div><div class="color-swatch-hex">#0F2440</div><div class="color-swatch-role">Sidebar, overlays</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#1E3A5F;"></div><div class="color-swatch-info"><div class="color-swatch-name">Everest Navy</div><div class="color-swatch-hex">#1E3A5F</div><div class="color-swatch-role">Primary background</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#2A4A6B;"></div><div class="color-swatch-info"><div class="color-swatch-name">Navy Elevated</div><div class="color-swatch-hex">#2A4A6B</div><div class="color-swatch-role">Cards, panels</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#3B5E80;"></div><div class="color-swatch-info"><div class="color-swatch-name">Navy Light</div><div class="color-swatch-hex">#3B5E80</div><div class="color-swatch-role">Borders, dividers</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#F59E0B;"></div><div class="color-swatch-info"><div class="color-swatch-name">Everest Amber</div><div class="color-swatch-hex">#F59E0B</div><div class="color-swatch-role">CTAs, links, accent</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#D97706;"></div><div class="color-swatch-info"><div class="color-swatch-name">Amber Hover</div><div class="color-swatch-hex">#D97706</div><div class="color-swatch-role">Hover state</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#FCD34D;"></div><div class="color-swatch-info"><div class="color-swatch-name">Amber Light</div><div class="color-swatch-hex">#FCD34D</div><div class="color-swatch-role">Highlights, selected</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#B45309;"></div><div class="color-swatch-info"><div class="color-swatch-name">Amber Deep</div><div class="color-swatch-hex">#B45309</div><div class="color-swatch-role">Pressed/active</div></div></div>
+  </div>
+
+  <div class="color-group-label">Text</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#F8FAFC;"></div><div class="color-swatch-info"><div class="color-swatch-name">Text Primary</div><div class="color-swatch-hex">#F8FAFC</div><div class="color-swatch-role">Headings</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#CBD5E1;"></div><div class="color-swatch-info"><div class="color-swatch-name">Text Secondary</div><div class="color-swatch-hex">#CBD5E1</div><div class="color-swatch-role">Body text</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#94A3B8;"></div><div class="color-swatch-info"><div class="color-swatch-name">Text Tertiary</div><div class="color-swatch-hex">#94A3B8</div><div class="color-swatch-role">Metadata</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#64748B;"></div><div class="color-swatch-info"><div class="color-swatch-name">Text Disabled</div><div class="color-swatch-hex">#64748B</div><div class="color-swatch-role">Disabled, placeholder</div></div></div>
+  </div>
+
+  <div class="color-group-label">Status</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#10B981;"></div><div class="color-swatch-info"><div class="color-swatch-name">Success</div><div class="color-swatch-hex">#10B981</div><div class="color-swatch-role">Won, verified</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#EF4444;"></div><div class="color-swatch-info"><div class="color-swatch-name">Error</div><div class="color-swatch-hex">#EF4444</div><div class="color-swatch-role">Failed, overdue</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#3B82F6;"></div><div class="color-swatch-info"><div class="color-swatch-name">Info</div><div class="color-swatch-hex">#3B82F6</div><div class="color-swatch-role">Informational</div></div></div>
+  </div>
+
+  <div class="color-group-label">ZoneWise Choropleth</div>
+  <div class="color-grid">
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#4ADE80;"></div><div class="color-swatch-info"><div class="color-swatch-name">Residential</div><div class="color-swatch-hex">#4ADE80</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#60A5FA;"></div><div class="color-swatch-info"><div class="color-swatch-name">Commercial</div><div class="color-swatch-hex">#60A5FA</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#A78BFA;"></div><div class="color-swatch-info"><div class="color-swatch-name">Industrial</div><div class="color-swatch-hex">#A78BFA</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#FBBF24;"></div><div class="color-swatch-info"><div class="color-swatch-name">Agricultural</div><div class="color-swatch-hex">#FBBF24</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#F472B6;"></div><div class="color-swatch-info"><div class="color-swatch-name">Mixed Use</div><div class="color-swatch-hex">#F472B6</div></div></div>
+    <div class="color-swatch"><div class="color-swatch-block" style="background:#2DD4BF;"></div><div class="color-swatch-info"><div class="color-swatch-name">PUD</div><div class="color-swatch-hex">#2DD4BF</div></div></div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- TYPOGRAPHY -->
+<div class="section">
+  <div class="section-label">02 / Typography</div>
+  <div class="section-title">Type Scale</div>
+
+  <div class="type-sample">
+    <div style="font-size:64px; font-weight:600; line-height:1.00; letter-spacing:-1.2px;">Display XL</div>
+    <div class="type-meta">Inter 64px / 600 / -1.2px / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:48px; font-weight:600; line-height:1.05; letter-spacing:-0.8px;">Display Large</div>
+    <div class="type-meta">Inter 48px / 600 / -0.8px / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:36px; font-weight:600; line-height:1.10; letter-spacing:-0.6px;">Display</div>
+    <div class="type-meta">Inter 36px / 600 / -0.6px / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:28px; font-weight:600; line-height:1.15; letter-spacing:-0.4px;">Heading 1</div>
+    <div class="type-meta">Inter 28px / 600 / -0.4px / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:22px; font-weight:600; line-height:1.20; letter-spacing:-0.2px;">Heading 2</div>
+    <div class="type-meta">Inter 22px / 600 / -0.2px / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:16px; font-weight:400; line-height:1.60; color:var(--text-secondary);">Body Large — The quick brown fox jumps over the lazy dog. Parcel #2500145 in Brevard County.</div>
+    <div class="type-meta">Inter 16px / 400 / normal / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-size:14px; font-weight:400; line-height:1.55; color:var(--text-secondary);">Body — Standard reading text for descriptions and content across the ecosystem.</div>
+    <div class="type-meta">Inter 14px / 400 / normal / cv01 ss03</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:var(--font-mono); font-size:20px; font-weight:500; line-height:1.20; color:var(--amber); font-feature-settings:'tnum' 1;">$142,500.00</div>
+    <div class="type-meta">JetBrains Mono 20px / 500 / tnum — Financial data</div>
+  </div>
+  <div class="type-sample">
+    <div style="font-family:var(--font-mono); font-size:14px; font-weight:400; line-height:1.50; color:var(--text-tertiary); font-feature-settings:'tnum' 1;">05-37-22-00-00123.0-0001.00</div>
+    <div class="type-meta">JetBrains Mono 14px / 400 / tnum — Parcel ID</div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- BUTTONS -->
+<div class="section">
+  <div class="section-label">03 / Components</div>
+  <div class="section-title">Buttons</div>
+  <div class="button-row">
+    <a class="btn-primary" href="#">Place Bid</a>
+    <a class="btn-secondary" href="#">View Details</a>
+    <a class="btn-danger" href="#">Cancel Bid</a>
+  </div>
+  <div class="button-row">
+    <a class="btn-primary" href="#" style="opacity:0.4;pointer-events:none;">Disabled</a>
+    <a class="btn-secondary" href="#" style="font-size:13px; padding:8px 14px;">Small Secondary</a>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- BADGES -->
+<div class="section">
+  <div class="section-title">Badges</div>
+  <div class="badge-row">
+    <span class="badge badge-success">Won</span>
+    <span class="badge badge-warning">Deadline 24h</span>
+    <span class="badge badge-error">Failed</span>
+    <span class="badge badge-info">Pending</span>
+  </div>
+  <div style="margin-top:16px; margin-bottom:8px; font-size:13px; font-weight:500; color:var(--text-tertiary);">Zoning Badges</div>
+  <div class="badge-row">
+    <span class="badge badge-zone badge-residential">Residential</span>
+    <span class="badge badge-zone badge-commercial">Commercial</span>
+    <span class="badge badge-zone badge-industrial">Industrial</span>
+    <span class="badge badge-zone badge-mixed">Mixed Use</span>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- INPUTS -->
+<div class="section">
+  <div class="section-title">Inputs</div>
+  <div class="input-row">
+    <input class="input-text" type="text" placeholder="Search parcels by address or ID...">
+    <input class="input-text" type="text" placeholder="Min bid amount" style="max-width:200px;">
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- CARDS -->
+<div class="section">
+  <div class="section-title">Cards</div>
+  <div class="card-grid">
+    <div class="card card-auction">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div class="card-title">Lot #247 — Tax Deed</div>
+        <span class="badge badge-warning">2d 14h</span>
+      </div>
+      <div class="card-parcel-id">05-37-22-00-00123.0-0001.00</div>
+      <div class="card-bid">$142,500.00</div>
+      <div class="card-body">3BR/2BA SFR, 1,450 sqft on 0.25 acres. Brevard County, Satellite Beach.</div>
+    </div>
+    <div class="card card-auction-deadline">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div class="card-title">Lot #312 — Foreclosure</div>
+        <span class="badge badge-error">< 24h</span>
+      </div>
+      <div class="card-parcel-id">25-36-15-00-00456.0-0002.00</div>
+      <div class="card-bid">$89,000.00</div>
+      <div class="card-body">2BR/1BA condo, 980 sqft. Melbourne, FL. Opening bid.</div>
+    </div>
+    <div class="card card-auction-won">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:8px;">
+        <div class="card-title">Lot #189 — Tax Deed</div>
+        <span class="badge badge-success">Won</span>
+      </div>
+      <div class="card-parcel-id">05-37-22-AB-00789.0-0003.00</div>
+      <div class="card-bid">$67,250.00</div>
+      <div class="card-body">Vacant lot, 0.18 acres, GU zoning. Cocoa Beach.</div>
+    </div>
+  </div>
+</div>
+
+<hr class="section-divider">
+
+<!-- DATA TABLE -->
+<div class="section">
+  <div class="section-title">Data Table</div>
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Parcel ID</th>
+        <th>Type</th>
+        <th>Location</th>
+        <th>Zoning</th>
+        <th class="num">Opening Bid</th>
+        <th class="num">Current Bid</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="selected">
+        <td class="mono">05-37-22-00-00123</td>
+        <td>Tax Deed</td>
+        <td>Satellite Beach</td>
+        <td><span class="badge badge-zone badge-residential">RES</span></td>
+        <td class="mono num">$85,000</td>
+        <td class="mono num" style="color:var(--amber);">$142,500</td>
+        <td><span class="badge badge-warning">Active</span></td>
+      </tr>
+      <tr>
+        <td class="mono">25-36-15-00-00456</td>
+        <td>Foreclosure</td>
+        <td>Melbourne</td>
+        <td><span class="badge badge-zone badge-commercial">COM</span></td>
+        <td class="mono num">$89,000</td>
+        <td class="mono num" style="color:var(--amber);">$89,000</td>
+        <td><span class="badge badge-error">< 24h</span></td>
+      </tr>
+      <tr>
+        <td class="mono">05-37-22-AB-00789</td>
+        <td>Tax Deed</td>
+        <td>Cocoa Beach</td>
+        <td><span class="badge badge-zone badge-mixed">MXD</span></td>
+        <td class="mono num">$45,000</td>
+        <td class="mono num" style="color:var(--success);">$67,250</td>
+        <td><span class="badge badge-success">Won</span></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<hr class="section-divider">
+
+<!-- FOOTER -->
+<div class="section" style="text-align:center; padding:32px;">
+  <div style="font-size:13px; color:var(--text-disabled);">Everest Capital USA — BidDeed.AI + ZoneWise.AI</div>
+  <div style="font-size:11px; color:var(--text-disabled); margin-top:4px;">Navy #1E3A5F · Amber #F59E0B · Inter + JetBrains Mono</div>
+</div>
+
+</body>
+</html>
