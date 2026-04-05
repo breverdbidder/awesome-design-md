@@ -1,0 +1,24 @@
+name: Sync Upstream
+on:
+  schedule:
+    - cron: '0 6 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Sync upstream changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git remote add upstream https://github.com/VoltAgent/awesome-design-md.git || true
+          git fetch upstream
+          git merge upstream/main --no-edit || echo "Nothing to merge"
+          git push origin main
